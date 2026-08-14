@@ -54,7 +54,7 @@ void analog_init(void)
 	result = ADC;											// first dummy measurement initializes the ADC
 // ADIE: ADC Interrupt Enable
 	sbi(ADCSRA, ADIE);										// activate ADC Interrupt
-//	sei();
+	sei();
 }
 //
 // Start a new conversion
