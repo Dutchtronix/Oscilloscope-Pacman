@@ -6,4 +6,4 @@ The subdirectory "logic" runs on a standard ATmega1284P microcontroller but it w
 
 The subdirectory "graphics" is tuned for the Dutchtronix AVR Oscilloscope clock hardware, specifically the ATmega328p microcontroller and the AD7302 DA converter.
 
-Both AVRs run at 20 MHz.
+The AVRs communicate using the serial port (one way only) and both run at 20 MHz.
