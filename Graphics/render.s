@@ -1,18 +1,6 @@
-; ClkRender.s -- source for Dutchtronix Oscilloscope Clock
+; render.s -- source for Dutchtronix Oscilloscope Graphics board as used in Oscilloscope Pacman
 ;
 ;  Copyright © 2010-2026 JdR
-;
-;  All Rights Reserved
-;
-;  This file is part of the Dutchtronix Oscilloscope Clock Distribution.
-;  Use, modification, and re-distribution is permitted subject to the
-;  terms in the file named "LICENSE.TXT", which contains the full text
-;  of the legal notices and should always accompany this Distribution.
-;
-;  This software is provided "AS IS" with NO WARRANTY OF ANY KIND.
-;
-;  This notice (including the copyright and warranty disclaimer)
-;  must be included in all copies or derivations of this software.
 ;
 ; reminder: AVR GCC Call used registers: r18..r27, r30..r31 (Z)
 ;					Called saved registers: r2..r17, r28..r29 (Y)
@@ -34,9 +22,6 @@
 	.global	TurnBeamOff
 	.global RestoreBeam
 	.global bintobcd
-#if SPLASHSCREEN
-	.global SplashRefresh
-#endif
 	.balign 2
 
 SetMem:
