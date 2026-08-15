@@ -65,7 +65,9 @@ void ms_pacman_init(void)
 void dot_init(void)
 {
 	for (uint8_t i=0 ; i<=243 ; i++) {			// Punkt Status (aller Punkte) auf 1 setzen = Dots vorhanden
+#if DOTSINFLASH		
 		dots_pixel_present[i]=1;
+#endif
 	}
 }
 
@@ -167,8 +169,10 @@ void get_joystick_direction(void)
 		y_joy_1=ADC_result[0];
 		x_joy_1=ADC_result[1];
 
-		if (x_joy_1>adc_limits_joy1[right]) logic_control.pacman.next_direction=right;			// x right
-		else if (x_joy_1<adc_limits_joy1[left]) logic_control.pacman.next_direction=left; 		// x left
+		if (x_joy_1>adc_limits_joy1[right])
+			logic_control.pacman.next_direction=right;			// x right
+		else if (x_joy_1<adc_limits_joy1[left])
+			logic_control.pacman.next_direction=left; 		// x left
 
 		if (y_joy_1<adc_limits_joy1[up]) logic_control.pacman.next_direction=up; 				// y up
 		else if (y_joy_1>adc_limits_joy1[down]) logic_control.pacman.next_direction=down; 		// y down
@@ -196,7 +200,7 @@ void get_joystick_direction(void)
 	}
 }
 
-void update_character_position(volatile struct character_data *data, uint8_t mode)
+void update_character_position(struct character_data *data, uint8_t mode)
 {
 	check_next_character_direction(data, mode);
 
@@ -246,7 +250,7 @@ void update_character_position(volatile struct character_data *data, uint8_t mod
 	data->x_grid=data->x_pixel/grid_dim;
 }
 
-void check_next_character_direction(volatile struct character_data *data, uint8_t mode)
+void check_next_character_direction(struct character_data *data, uint8_t mode)
 {
 	// Determine the input for the direction depending on the provided mode variable.
 	if (mode==joystick) get_joystick_direction();
@@ -334,12 +338,12 @@ uint8_t check_grid_valid(uint8_t x_pos, uint8_t y_pos)
 	return grid_valid;				// Rückgabe ob das geforderte Feld gültig ist oder nicht
 }
 
-void check_dots(volatile struct character_data *data)
+void check_dots(struct character_data *data)
 {
 	for (uint8_t dots=0; dots<=243; dots++) {		// Schleife zur Abfrage alle 244 Punkte
 		// Wenn x und y position in Tabelle hinterlegt und der Punkt noch vorhanden
 		// If x and y positions are stored in a table and the point is still present
-#if 1
+#if DOTSINFLASH
 		if ((data->x_pixel==pgm_read_byte(&dots_pixel_status[dots][0])) && (data->y_pixel==pgm_read_byte(&dots_pixel_status[dots][1])) && (dots_pixel_present[dots])) {
 			dots_pixel_present[dots]=0;								// Punkt auf 0 (nicht vorhanden) setzten. Set point to 0 (not present)
 			logic_control.dots[dots]=dots_pixel_present[dots];		// umschreiben auf logic_control Strukt, da Koordinaten in .h definiert sind und somit nirgendwo anders inkludiert werden kann
@@ -400,7 +404,7 @@ void check_dots(volatile struct character_data *data)
 	}
 }
 
-void check_fruits(volatile struct fruits *fruit, volatile struct character_data *data)
+void check_fruits(struct fruits *fruit, struct character_data *data)
 {
 	// eine der 5 Früchte vorhanden und Pacman/Ms.Pacman (bzw. übergebenen Charakter auf deren Position
 	if (logic_control.fruits.fruit_display &&
