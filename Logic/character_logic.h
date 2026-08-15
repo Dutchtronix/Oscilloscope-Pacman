@@ -29,7 +29,7 @@
 uint16_t adc_limits_joy1[6];		//indexed by enum direction {neutral,right,down,left,up}
 uint16_t adc_limits_joy2[6];		//indexed by enum direction {neutral,right,down,left,up}
 
-typedef volatile struct
+typedef struct
 {
 	///Bestimmt welche Animationen auf dem Bildschirm dargstellt werden
 	/**
@@ -194,7 +194,7 @@ typedef volatile struct
 		pineapple;
 	}fruits;	///< bereitgestellte Früchte
 
-}logic_data;
+} logic_data;
 
 logic_data logic_control; ///< bereigestellter Strukt der Logik Steuervariablen
 
@@ -247,13 +247,13 @@ void get_joystick_direction(void);
  * \brief Funktion zur Änderung und Überprüfung der aktuellen Bewegungsrichtung
  * \param data, mode Übergabe von dem gewünschtem Charakter Strukt und Bewegungsmodus
 */
-void update_character_position(volatile struct character_data *data, uint8_t mode);
+void update_character_position(struct character_data *data, uint8_t mode);
 
 /**
  * \brief Funktion zur Änderung und Überprüfung der nächsten Bewegungsrichtung
  * \param data, mode Übergabe von dem gewünschtem Charakter Strukt und Bewegungsmodus
 */
-void check_next_character_direction(volatile struct character_data *data, uint8_t mode);
+void check_next_character_direction(struct character_data *data, uint8_t mode);
 
 /**
  * \brief Funktion zum Überprüfen, ob sich der Charakter in einem gültigen Feld befindet
@@ -265,12 +265,12 @@ uint8_t check_grid_valid(uint8_t x_pos, uint8_t y_pos);
  * \brief Funktion zum Überprüfen, ob ein Punkt gesammelt wurde
  * \param data Übergabe von dem gewünschtem Charakter Strukt (Pacman oder Ms.Pacman)
 */
-void check_dots(volatile struct character_data *data);
+void check_dots(struct character_data *data);
 
 /**
  * \brief Funktion zum Überprüfen, ob eine Frucht (Bonus Punkte) gesammelt wurde
  * \param fruit, data Übergabe von der Frucht und dem gewünschtem Charakter Strukt
 */
-void check_fruits(volatile struct fruits *fruit, volatile struct character_data *data);
+void check_fruits(struct fruits *fruit, struct character_data *data);
 
 #endif /* PACMAN_LOGIC_H_ */
