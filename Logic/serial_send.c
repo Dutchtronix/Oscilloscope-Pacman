@@ -63,7 +63,9 @@ void send_to_graphics1(void)
 	// prepare to send
 	// Punkte
 	send_dot_segment(logic_control.pacman.global_dots, logic_control.dots[logic_control.pacman.global_dots], 0);
+#if TWOPLAYERMODE
 	send_dot_segment(logic_control.ms_pacman.global_dots, logic_control.dots[logic_control.ms_pacman.global_dots], 0);
+#endif
 
 	// character position data
 	serial_send(pacman_x_position, 0);
@@ -72,11 +74,13 @@ void send_to_graphics1(void)
 	serial_send(pacman_mouth_lock, 0);
 	serial_send(pacman_dead,0);
 
+#if TWOPLAYERMODE
 	serial_send(ms_pacman_x_position, 0);
 	serial_send(ms_pacman_y_position, 0);
 	serial_send(ms_pacman_direction, 0);
 	serial_send(ms_pacman_mouth_lock, 0);
 	serial_send(ms_pacman_dead,0);
+#endif
 
 	// ghost data
 	serial_send(ghost_1_x_position, 0);
@@ -112,6 +116,7 @@ void send_to_graphics1(void)
 	serial_send(banana_show_in_map, 0);
 }
 
+#if TWOPLAYERMODE
 void send_to_graphics2(void)
 {
 	// prepare to send
@@ -169,6 +174,7 @@ void send_to_graphics2(void)
 	serial_send(pineapple_show_in_map, 1);
 	serial_send(banana_show_in_map, 1);
 }
+#endif
 
 void send_all_dots()
 {
