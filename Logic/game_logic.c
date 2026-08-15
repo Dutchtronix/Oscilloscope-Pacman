@@ -265,7 +265,9 @@ void logic_check(void)
 	if (logic_control.dot_counter==244)			// Wenn alle Punkte weg -> nächstes level
 	{
 		send_to_graphics1();
+#if	TWOPLAYERMODE
 		if (logic_control.player2_mode == 2) send_to_graphics2();
+#endif
 		_delay_ms(1000);						// 1s warten bis das nächste Level los geht...
 		next_level();
 	}
