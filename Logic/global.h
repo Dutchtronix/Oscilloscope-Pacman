@@ -25,6 +25,7 @@
 // Only affects hardware level
 //
 #define TWOPLAYERMODE 0
+#define DOTSINFLASH 1
 //
 // Serial port currently only used for sending data
 //
@@ -133,7 +134,7 @@ enum numerated_serial_data {
 
 	//dots
 	dots,
-	seperate_dots, 			//placeholder, not in use
+	separate_dots, 			//placeholder, not in use
 
 	ms_pacman_score,
 	result,
