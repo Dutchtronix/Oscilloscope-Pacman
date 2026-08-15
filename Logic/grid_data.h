@@ -381,7 +381,7 @@ const uint8_t valid_grid_bottom_right[63][2] PROGMEM = // bottom right
 };
 
 /**\brief Koordinaten der dots + Status*/
-#if 1
+#if DOTSINFLASH
 // entry [2] modified. Separate to allow storage of [0] and [1] in code space
 uint8_t dots_pixel_present[244];
 const uint8_t dots_pixel_status[244][2] PROGMEM =
@@ -686,6 +686,7 @@ const uint8_t dots_pixel_status[244][2] PROGMEM =
 };
 
 #else
+
 uint8_t dots_pixel_status[244][3] =
 {
 	//bottom_left
